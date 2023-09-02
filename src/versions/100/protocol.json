@@ -1,0 +1,1965 @@
+{
+	"types": {
+		"i8": "native",
+		"u8": "native",
+		"lu16": "native",
+		"lu32": "native",
+		"lu64": "native",
+		"f32": "native",
+		"f64": "native",
+		"bool": "native",
+		"cstring": "native",
+		"void": "native",
+		"switch": "native",
+		"container": "native"
+	},
+	"protocol": {
+		"types": {
+			"clientId": "lu16",
+			"entityId": "u8",
+			"ringId": "lu16",
+			"entityAction": [
+				"mapper",
+				{
+					"type": "u8",
+					"mappings": {
+						"0x00": "Spawn",
+						"0x01": "Update",
+						"0x02": "Destroy"
+					}
+				}
+			],
+			"packet_type": [
+				"mapper",
+				{
+					"type": "u8",
+					"mappings": {
+						"0x00": "ClientIdentity",
+						"0x01": "ServerStatus",
+						"0x02": "ServerPlayerJoined",
+						"0x03": "ServerPlayerLeft",
+						"0x04": "ServerPlayerInfo",
+						"0x05": "ServerDisconnectReason",
+						"0x06": "ServerReadyState",
+						"0x07": "ServerCharSelectStart",
+						"0x08": "ServerCountdown",
+						"0x09": "UnusedServerExeChange",
+						"0x0a": "ServerCharSelectUpdate",
+						"0x0b": "ServerCharacterResponse",
+						"0x0c": "ServerExeCharacterSuccess",
+						"0x0d": "ServerGameStart",
+						"0x0e": "ServerPlayerInfoResponse",
+						"0x0f": "ServerSetEXEChance",
+						"0x10": "ServerLobbyLoaded",
+						"0x11": "UnusedServerVotekick",
+						"0x12": "ServerCharSelectTimer",
+						"0x13": "ServerVoteMaps",
+						"0x14": "ServerVoteResults",
+						"0x15": "ServerVoteTimer",
+						"0x16": "ServerMapLoaded",
+						"0x17": "ServerGameExeWin",
+						"0x18": "ServerGameSurvivorWin",
+						"0x19": "ServerGameSpawnEscape",
+						"0x1a": "ServerGamePlayerEscaped",
+						"0x1b": "ServerReturnToLobby",
+						"0x1c": "ServerGameTimer",
+						"0x1d": "ServerGameTimeOver",
+						"0x1e": "ServerPlayerPing",
+						"0x1f": "ServerPlayerDeathStatus",
+						"0x20": "ServerPlayerDeathTimer",
+						"0x21": "ServerPlayerDeathEnd",
+						"0x22": "UnusedServerRequestInfo",
+						"0x23": "ServerHeartbeat",
+						"0x24": "ServerPong",
+						"0x25": "UnusedServerForceDamage",
+						"0x26": "UnusedServerRingReady",
+						"0x27": "UnusedServerPlayerBacktrack",
+						"0x28": "ServerTailsProjectileState",
+						"0x29": "ServerEggmanTrackerState",
+						"0x2a": "ServerBlackRingSpawn",
+						"0x2b": "ServerRMZSlimeState",
+						"0x2c": "ServerRMZSlimeKilled",
+						"0x2d": "ServerRMZShardState",
+						"0x2e": "ServerLCEyeState",
+						"0x2f": "ServerLCChainState",
+						"0x30": "ServerNCLevelState",
+						"0x31": "ServerKAFMonitorState",
+						"0x32": "ServerYCRSmokeState",
+						"0x33": "ServerYCRSmokeReady",
+						"0x34": "ServerSpikesState",
+						"0x35": "ServerRingState",
+						"0x36": "ServerRingCollected",
+						"0x37": "ServerAct9WallState",
+						"0x38": "ServerNAPSnowballState",
+						"0x39": "ServerNAPIceState",
+						"0x3a": "ServerPFElevatorState",
+						"0x3b": "ServerBlackRingState",
+						"0x3c": "ServerBlackRingCollected",
+						"0x3d": "ServerVVLColumnState",
+						"0x3e": "ServerVVVaseDestroyed",
+						"0x3f": "ServerGHZThunderState",
+						"0x40": "ServerTCGomState",
+						"0x41": "ServerExellerCloneState",
+						"0x42": "ServerDTTailsDollState",
+						"0x43": "ServerDTBallState",
+						"0x44": "ServerDTAssState",
+						"0x45": "ServerHDDoorState",
+						"0x46": "ServerFZDummyState",
+						"0x47": "ClientEggmanTrackerSpawn",
+						"0x48": "ClientEggmanTrackerTrigger",
+						"0x49": "TailsProjectileFire",
+						"0x4a": "TailsProjectileHit",
+						"0x4b": "ClientExetiorDeeznuts",
+						"0x4c": "ClientExetiorBlackRingSpawn",
+						"0x4d": "ClientExellerCloneSpawn",
+						"0x4e": "ClientExellerCloneTeleport",
+						"0x4f": "UnusedClientMercoinBonus",
+						"0x50": "ClientRMZSlimeKill",
+						"0x51": "ClientLCEyeActivate",
+						"0x52": "ClientKAFMonitorActivate",
+						"0x53": "ClientRingCollect",
+						"0x54": "ClientBlackRingCollect",
+						"0x55": "ClientNPIceActivate",
+						"0x56": "UnusedClientSpringJump",
+						"0x57": "ClientPFElevatorActivate",
+						"0x58": "ClientVVVaseBreak",
+						"0x59": "ClientRMZShardCollect",
+						"0x5a": "UnusedClientRMZShardLand",
+						"0x5b": "ClientDTAssActivate",
+						"0x5c": "ClientHDDoorToggle",
+						"0x5d": "ClientFZDummyPush",
+						"0x5e": "ClientLobbyReady",
+						"0x5f": "UnusedClientRequestedInfo",
+						"0x60": "ClientPlayerState",
+						"0x61": "UnusedClientPlayerHurt",
+						"0x62": "PassthroughEmitSound",
+						"0x63": "ClientPing",
+						"0x64": "ClientRevivalProgress",
+						"0x65": "UnusedClientHeal",
+						"0x66": "UnusedClientHealPartial",
+						"0x67": "ServerRevivalProgress",
+						"0x68": "ServerRevivalStatus",
+						"0x69": "ServerRevivalSubtractRings",
+						"0x6a": "ServerRevivalSuccess",
+						"0x6b": "ClientCharacterRequest",
+						"0x6c": "ClientExeCharacterRequest",
+						"0x6d": "ClientMapVote",
+						"0x6e": "ClientPlayerDeathStatus",
+						"0x6f": "ClientPlayerEscaped",
+						"0x70": "ClientPlayerInfoRequest",
+						"0x71": "ClientCreamSpawnRings",
+						"0x72": "UnusedPassthroughSpawnEffect",
+						"0x73": "PassthroughChatMessage",
+						"0x74": "ClientLobbyVotekick",
+						"0x75": "UnusedPassthroughPlayerPallete",
+						"0x76": "UnusedPassthroughPetPallete",
+						"0x77": "UnusedPassthroughFZPotato",
+						"0x78": "unknown_78",
+						"0x79": "unknown_79",
+						"0x80": "unknown_80",
+						"0x81": "unknown_81",
+						"0x82": "unknown_82",
+						"0x83": "unknown_83",
+						"0x84": "unknown_84",
+						"0x85": "unknown_85",
+						"0x86": "unknown_86",
+						"0x87": "unknown_87",
+						"0x88": "unknown_88",
+						"0x89": "unknown_89",
+						"0x8a": "unknown_8a",
+						"0x8b": "unknown_8b",
+						"0x8c": "unknown_8c",
+						"0x8d": "unknown_8d",
+						"0x8e": "unknown_8e",
+						"0x8f": "unknown_8f",
+						"0x90": "unknown_90",
+						"0x91": "unknown_91",
+						"0x92": "unknown_92",
+						"0x93": "unknown_93",
+						"0x94": "unknown_94",
+						"0x95": "unknown_95",
+						"0x96": "unknown_96",
+						"0x97": "unknown_97",
+						"0x98": "unknown_98",
+						"0x99": "unknown_99",
+						"0x9a": "unknown_9a",
+						"0x9b": "unknown_9b",
+						"0x9c": "unknown_9c",
+						"0x9d": "unknown_9d",
+						"0x9e": "unknown_9e",
+						"0x9f": "unknown_9f",
+						"0xa0": "unknown_a0",
+						"0xa1": "unknown_a1",
+						"0xa2": "unknown_a2",
+						"0xa3": "unknown_a3",
+						"0xa4": "unknown_a4",
+						"0xa5": "unknown_a5",
+						"0xa6": "unknown_a6",
+						"0xa7": "unknown_a7",
+						"0xa8": "unknown_a8",
+						"0xa9": "unknown_a9",
+						"0xaa": "unknown_aa",
+						"0xab": "unknown_ab",
+						"0xac": "unknown_ac",
+						"0xad": "unknown_ad",
+						"0xae": "unknown_ae",
+						"0xaf": "unknown_af",
+						"0xb0": "unknown_b0",
+						"0xb1": "unknown_b1",
+						"0xb2": "unknown_b2",
+						"0xb3": "unknown_b3",
+						"0xb4": "unknown_b4",
+						"0xb5": "unknown_b5",
+						"0xb6": "unknown_b6",
+						"0xb7": "unknown_b7",
+						"0xb8": "unknown_b8",
+						"0xb9": "unknown_b9",
+						"0xba": "unknown_ba",
+						"0xbb": "unknown_bb",
+						"0xbc": "unknown_bc",
+						"0xbd": "unknown_bd",
+						"0xbe": "unknown_be",
+						"0xbf": "unknown_bf",
+						"0xc0": "unknown_c0",
+						"0xc1": "unknown_c1",
+						"0xc2": "unknown_c2",
+						"0xc3": "unknown_c3",
+						"0xc4": "unknown_c4",
+						"0xc5": "unknown_c5",
+						"0xc6": "unknown_c6",
+						"0xc7": "unknown_c7",
+						"0xc8": "unknown_c8",
+						"0xc9": "unknown_c9",
+						"0xca": "unknown_ca",
+						"0xcb": "unknown_cb",
+						"0xcc": "unknown_cc",
+						"0xcd": "unknown_cd",
+						"0xce": "unknown_ce",
+						"0xcf": "unknown_cf",
+						"0xd0": "unknown_d0",
+						"0xd1": "unknown_d1",
+						"0xd2": "unknown_d2",
+						"0xd3": "unknown_d3",
+						"0xd4": "unknown_d4",
+						"0xd5": "unknown_d5",
+						"0xd6": "unknown_d6",
+						"0xd7": "unknown_d7",
+						"0xd8": "unknown_d8",
+						"0xd9": "unknown_d9",
+						"0xda": "unknown_da",
+						"0xdb": "unknown_db",
+						"0xdc": "unknown_dc",
+						"0xdd": "unknown_dd",
+						"0xde": "unknown_de",
+						"0xdf": "unknown_df",
+						"0xe0": "unknown_e0",
+						"0xe1": "unknown_e1",
+						"0xe2": "unknown_e2",
+						"0xe3": "unknown_e3",
+						"0xe4": "unknown_e4",
+						"0xe5": "unknown_e5",
+						"0xe6": "unknown_e6",
+						"0xe7": "unknown_e7",
+						"0xe8": "unknown_e8",
+						"0xe9": "unknown_e9",
+						"0xea": "unknown_ea",
+						"0xeb": "unknown_eb",
+						"0xec": "unknown_ec",
+						"0xed": "unknown_ed",
+						"0xee": "unknown_ee",
+						"0xef": "unknown_ef",
+						"0xf0": "unknown_f0",
+						"0xf1": "unknown_f1",
+						"0xf2": "unknown_f2",
+						"0xf3": "unknown_f3",
+						"0xf4": "unknown_f4",
+						"0xf5": "unknown_f5",
+						"0xf6": "unknown_f6",
+						"0xf7": "unknown_f7",
+						"0xf8": "unknown_f8",
+						"0xf9": "unknown_f9",
+						"0xfa": "unknown_fa",
+						"0xfb": "unknown_fb",
+						"0xfc": "unknown_fc",
+						"0xfd": "unknown_fd",
+						"0xfe": "unknown_fe",
+						"0xff": "unknown_ff"
+					}
+				}
+			],
+			"tcp__ClientIdentity": [
+				"container",
+				[
+					{
+						"name": "version",
+						"type": "lu16"
+					},
+					{
+						"name": "username",
+						"type": "cstring"
+					},
+					{
+						"name": "icon",
+						"type": "u8"
+					},
+					{
+						"name": "pet",
+						"type": "i8"
+					},
+					{
+						"name": "os",
+						"type": "u8"
+					},
+					{
+						"name": "uuid",
+						"type": "cstring"
+					}
+				]
+			],
+			"tcp__ServerStatus": [
+				"container",
+				[
+					{
+						"name": "isLobby",
+						"type": "bool"
+					},
+					{
+						"name": "clientId",
+						"type": "clientId"
+					}
+				]
+			],
+			"tcp__ServerPlayerJoined": "clientId",
+			"tcp__ServerPlayerLeft": "clientId",
+			"tcp__ServerPlayerInfo": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "username",
+						"type": "cstring"
+					},
+					{
+						"name": "icon",
+						"type": "u8"
+					},
+					{
+						"name": "pet",
+						"type": "i8"
+					}
+				]
+			],
+			"tcp__ServerDisconnectReason": "cstring",
+			"tcp__ServerReadyState": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "isReady",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ServerCharSelectStart": [
+				"container",
+				[
+					{
+						"name": "currentEXE",
+						"type": "clientId"
+					},
+					{
+						"name": "selectedMap",
+						"type": "lu16"
+					}
+				]
+			],
+			"tcp__ServerCountdown": [
+				"container",
+				[
+					{
+						"name": "isCounting",
+						"type": "bool"
+					},
+					{
+						"name": "inSeconds",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerCharSelectUpdate": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "characterId",
+						"type": "lu32"
+					}
+				]
+			],
+			"tcp__ServerCharacterResponse": [
+				"container",
+				[
+					{
+						"name": "characterId",
+						"type": "u8"
+					},
+					{
+						"name": "success",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ServerExeCharacterSuccess": "lu32",
+			"tcp__ServerGameStart": "void",
+			"tcp__ServerPlayerInfoResponse": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "isReady",
+						"type": "bool"
+					},
+					{
+						"name": "username",
+						"type": "cstring"
+					},
+					{
+						"name": "icon",
+						"type": "u8"
+					},
+					{
+						"name": "pet",
+						"type": "i8"
+					}
+				]
+			],
+			"tcp__ServerSetEXEChance": "u8",
+			"tcp__ServerLobbyLoaded": "void",
+			"tcp__ServerCharSelectTimer": "u8",
+			"tcp__ServerVoteMaps": [
+				"array",
+				{
+					"count": 3,
+					"type": "u8"
+				}
+			],
+			"tcp__ServerVoteResults": [
+				"array",
+				{
+					"count": 3,
+					"type": "u8"
+				}
+			],
+			"tcp__ServerVoteTimer": "u8",
+			"tcp__ServerMapLoaded": "void",
+			"tcp__ServerGameExeWin": "void",
+			"tcp__ServerGameSurvivorWin": "void",
+			"tcp__ServerGameSpawnEscape": [
+				"container",
+				[
+					{
+						"name": "active",
+						"type": "bool"
+					},
+					{
+						"name": "location",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerGamePlayerEscaped": "clientId",
+			"tcp__ServerReturnToLobby": "void",
+			"tcp__ServerGameTimer": "lu16",
+			"tcp__ServerGameTimeOver": "void",
+			"tcp__ServerPlayerPing": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "calculated",
+						"type": "lu16"
+					}
+				]
+			],
+			"tcp__ServerPlayerDeathStatus": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "isAlive",
+						"type": "bool"
+					},
+					{
+						"name": "revivals",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerPlayerDeathTimer": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "timer",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerPlayerDeathEnd": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "isDemonized",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ServerHeartbeat": "void",
+			"tcp__ServerTailsProjectileState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": "entityAction"
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											},
+											{
+												"name": "owner",
+												"type": "clientId"
+											},
+											{
+												"name": "direction",
+												"type": "i8"
+											},
+											{
+												"name": "damage",
+												"type": "u8"
+											},
+											{
+												"name": "isExe",
+												"type": "bool"
+											},
+											{
+												"name": "charge",
+												"type": "u8"
+											}
+										]
+									],
+									"Update": [
+										"container",
+										[
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Destroy": "void"
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerEggmanTrackerState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": "entityAction"
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Update": "void",
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "activatedBy",
+												"type": "clientId"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerBlackRingSpawn": [
+				"container",
+				[
+					{
+						"name": "ringId",
+						"type": "ringId"
+					},
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					}
+				]
+			],
+			"tcp__ServerRMZSlimeState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": "entityAction"
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											},
+											{
+												"name": "state",
+												"type": "u8"
+											}
+										]
+									],
+									"Update": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											},
+											{
+												"name": "state",
+												"type": "u8"
+											}
+										]
+									],
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerRMZSlimeKilled": [
+				"container",
+				[
+					{
+						"name": "ringBonus",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ServerRMZShardState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Spawn",
+									"0x01": "Respawn",
+									"0x02": "Destroy",
+									"0x03": "Remaining"
+								}
+							}
+						]
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Respawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "collectedBy",
+												"type": "clientId"
+											}
+										]
+									],
+									"Remaining": [
+										"container",
+										[
+											{
+												"name": "remaining",
+												"type": "u8"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerLCEyeState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "isUsed",
+						"type": "bool"
+					},
+					{
+						"name": "usedBy",
+						"type": "clientId"
+					},
+					{
+						"name": "targetId",
+						"type": "u8"
+					},
+					{
+						"name": "charge",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerLCChainState": "u8",
+			"tcp__ServerNCLevelState": [
+				"container",
+				[
+					{
+						"name": "fade",
+						"type": "bool"
+					},
+					{
+						"name": "toStage",
+						"type": "u8"
+					},
+					{
+						"name": "fromStage",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerKAFMonitorState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Spawn",
+									"0x01": "Respawn",
+									"0x02": "Activated"
+								}
+							}
+						]
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											}
+										]
+									],
+									"Respawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											}
+										]
+									],
+									"Activated": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "activatedBy",
+												"type": "clientId"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerYCRSmokeState": [
+				"container",
+				[
+					{
+						"name": "isActivated",
+						"type": "bool"
+					},
+					{
+						"name": "id",
+						"type": "entityId"
+					}
+				]
+			],
+			"tcp__ServerYCRSmokeReady": "entityId",
+			"tcp__ServerSpikesState": "u8",
+			"tcp__ServerRingState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Spawn",
+									"0x01": "Destroy",
+									"0x02": "PlayerSpawn"
+								}
+							}
+						]
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "positionId",
+												"type": "u8"
+											},
+											{
+												"name": "ringId",
+												"type": "ringId"
+											},
+											{
+												"name": "isRedRing",
+												"type": "bool"
+											}
+										]
+									],
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "positionId",
+												"type": "u8"
+											},
+											{
+												"name": "ringId",
+												"type": "ringId"
+											}
+										]
+									],
+									"PlayerSpawn": [
+										"container",
+										[
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											},
+											{
+												"name": "positionId",
+												"type": "u8"
+											},
+											{
+												"name": "ringId",
+												"type": "ringId"
+											},
+											{
+												"name": "isRedRing",
+												"type": "bool"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerRingCollected": [
+				"container",
+				[
+					{
+						"name": "isRedRing",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ServerNAPSnowballState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": "entityAction"
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "direction",
+												"type": "i8"
+											}
+										]
+									],
+									"Update": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "waypointId",
+												"type": "u8"
+											},
+											{
+												"name": "frame",
+												"type": "u8"
+											},
+											{
+												"name": "frame",
+												"type": "f64"
+											}
+										]
+									],
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerNAPIceState": [
+				"container",
+				[
+					{
+						"name": "isReady",
+						"type": "bool"
+					},
+					{
+						"name": "id",
+						"type": "entityId"
+					}
+				]
+			],
+			"tcp__ServerBlackRingState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Spawn",
+									"0x01": "Destroy"
+								}
+							}
+						]
+					},
+					{
+						"name": "ringId",
+						"type": "ringId"
+					}
+				]
+			],
+			"tcp__ServerBlackRingCollected": "void",
+			"tcp__ServerVVVaseDestroyed": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "vaseType",
+						"type": "u8"
+					},
+					{
+						"name": "destroyedBy",
+						"type": "clientId"
+					}
+				]
+			],
+			"tcp__ServerGHZThunderState": "bool",
+			"tcp__ServerTCGomState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "state",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerExellerCloneState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Spawn",
+									"0x01": "Destroy"
+								}
+							}
+						]
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Spawn": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "owner",
+												"type": "clientId"
+											},
+											{
+												"name": "x",
+												"type": "lu16"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											},
+											{
+												"name": "direction",
+												"type": "i8"
+											}
+										]
+									],
+									"Destroy": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"tcp__ServerDTTailsDollState": "unimplemented",
+			"tcp__ServerDTAssState": "unimplemented",
+			"tcp__ServerHDDoorState": [
+				"container",
+				[
+					{
+						"name": "unknown",
+						"type": "bool"
+					},
+					{
+						"name": "state",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ClientEggmanTrackerSpawn": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					}
+				]
+			],
+			"tcp__ClientEggmanTrackerTrigger": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "activatedBy",
+						"type": "clientId"
+					}
+				]
+			],
+			"tcp__ClientTailsProjectileFire": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					},
+					{
+						"name": "direction",
+						"type": "i8"
+					},
+					{
+						"name": "damage",
+						"type": "u8"
+					},
+					{
+						"name": "isExe",
+						"type": "bool"
+					},
+					{
+						"name": "charge",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ClientTailsProjectileHit": "void",
+			"tcp__ClientExetiorDeeznuts": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "f32"
+					},
+					{
+						"name": "y",
+						"type": "f32"
+					}
+				]
+			],
+			"tcp__ClientExetiorBlackRingSpawn": "tcp__ClientExetiorDeeznuts",
+			"tcp__ClientExellerCloneSpawn": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					},
+					{
+						"name": "direction",
+						"type": "i8"
+					}
+				]
+			],
+			"tcp__ClientExellerCloneTeleport": "entityId",
+			"tcp__ClientRMZSlimeKill": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "killedBy",
+						"type": "clientId"
+					},
+					{
+						"name": "isProjectile",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ClientLCEyeActivate": [
+				"container",
+				[
+					{
+						"name": "isUsed",
+						"type": "bool"
+					},
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "targetId",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ClientKAFMonitorActivate": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "isProjectile",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__ClientRingCollect": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "ringId",
+						"type": "ringId"
+					}
+				]
+			],
+			"tcp__ClientBlackRingCollect": "ringId",
+			"tcp__ClientNPIceActivate": "entityId",
+			"tcp__ClientPFElevatorActivate": "entityId",
+			"tcp__ClientVVVaseBreak": "entityId",
+			"tcp__ClientRMZShardCollect": "entityId",
+			"tcp__ClientDTAssActivate": "entityId",
+			"tcp__ClientHDDoorToggle": "void",
+			"tcp__ClientFZDummyPush": [
+				"container",
+				[
+					{
+						"name": "speed",
+						"type": "i8"
+					}
+				]
+			],
+			"tcp__ClientLobbyReady": "bool",
+			"tcp__PassthroughEmitSound": [
+				"container",
+				[
+					{
+						"name": "emittedBy",
+						"type": "clientId"
+					},
+					{
+						"name": "soundId",
+						"type": "lu16"
+					}
+				]
+			],
+			"tcp__ClientRevivalProgress": [
+				"container",
+				[
+					{
+						"name": "targetId",
+						"type": "clientId"
+					},
+					{
+						"name": "rings",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ServerRevivalStatus": [
+				"container",
+				[
+					{
+						"name": "status",
+						"type": "bool"
+					},
+					{
+						"name": "targetId",
+						"type": "clientId"
+					}
+				]
+			],
+			"tcp__ServerRevivalSubtractRings": "void",
+			"tcp__ServerRevivalSuccess": "void",
+			"tcp__ClientCharacterRequest": "u8",
+			"tcp__ClientExeCharacterRequest": "u8",
+			"tcp__ClientMapVote": "u8",
+			"tcp__ClientPlayerDeathStatus": [
+				"container",
+				[
+					{
+						"name": "isAlive",
+						"type": "bool"
+					},
+					{
+						"name": "revivals",
+						"type": "u8"
+					}
+				]
+			],
+			"tcp__ClientPlayerEscaped": "void",
+			"tcp__ClientPlayerInfoRequest": "void",
+			"tcp__ClientCreamSpawnRings": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					},
+					{
+						"name": "isRedRing",
+						"type": "bool"
+					}
+				]
+			],
+			"tcp__PassthroughChatMessage": [
+				"container",
+				[
+					{
+						"name": "sender",
+						"type": "clientId"
+					},
+					{
+						"name": "message",
+						"type": "cstring"
+					}
+				]
+			],
+			"tcp__ClientLobbyVotekick": "clientId",
+			"tcp__UnusedPassthroughPlayerPallete": [
+				"container",
+				[
+					{
+						"name": "unknownFlag",
+						"type": "bool"
+					},
+					{
+						"name": "player",
+						"type": "clientId"
+					},
+					{
+						"name": "pallete",
+						"type": [
+							"array",
+							{
+								"type": "u8",
+								"count": 16
+							}
+						]
+					}
+				]
+			],
+			"tcp__UnusedPassthroughPetPallete": [
+				"container",
+				[
+					{
+						"name": "unknownFlag",
+						"type": "bool"
+					},
+					{
+						"name": "player",
+						"type": "clientId"
+					},
+					{
+						"name": "pallete",
+						"type": [
+							"array",
+							{
+								"type": "u8",
+								"count": 5
+							}
+						]
+					}
+				]
+			],
+			"tcp_packet": [
+				"container",
+				[
+					{
+						"name": "passthrough",
+						"type": "bool"
+					},
+					{
+						"name": "type",
+						"type": "packet_type"
+					},
+					{
+						"name": "data",
+						"type": [
+							"switch",
+							{
+								"compareTo": "type",
+								"fields": {
+									"ClientIdentity": "tcp__ClientIdentity",
+									"ServerStatus": "tcp__ServerStatus",
+									"ServerPlayerJoined": "tcp__ServerPlayerJoined",
+									"ServerPlayerLeft": "tcp__ServerPlayerLeft",
+									"ServerPlayerInfo": "tcp__ServerPlayerInfo",
+									"ServerDisconnectReason": "tcp__ServerDisconnectReason",
+									"ServerReadyState": "tcp__ServerReadyState",
+									"ServerCharSelectStart": "tcp__ServerCharSelectStart",
+									"ServerCountdown": "tcp__ServerCountdown",
+									"ServerCharSelectUpdate": "tcp__ServerCharSelectUpdate",
+									"ServerCharacterResponse": "tcp__ServerCharacterResponse",
+									"ServerExeCharacterSuccess": "tcp__ServerExeCharacterSuccess",
+									"ServerGameStart": "tcp__ServerGameStart",
+									"ServerPlayerInfoResponse": "tcp__ServerPlayerInfoResponse",
+									"ServerSetEXEChance": "tcp__ServerSetEXEChance",
+									"ServerLobbyLoaded": "tcp__ServerLobbyLoaded",
+									"ServerCharSelectTimer": "tcp__ServerCharSelectTimer",
+									"ServerVoteMaps": "tcp__ServerVoteMaps",
+									"ServerVoteResults": "tcp__ServerVoteResults",
+									"ServerVoteTimer": "tcp__ServerVoteTimer",
+									"ServerMapLoaded": "tcp__ServerMapLoaded",
+									"ServerGameExeWin": "tcp__ServerGameExeWin",
+									"ServerGameSurvivorWin": "tcp__ServerGameSurvivorWin",
+									"ServerGameSpawnEscape": "tcp__ServerGameSpawnEscape",
+									"ServerGamePlayerEscaped": "tcp__ServerGamePlayerEscaped",
+									"ServerReturnToLobby": "tcp__ServerReturnToLobby",
+									"ServerGameTimer": "tcp__ServerGameTimer",
+									"ServerGameTimeOver": "tcp__ServerGameTimeOver",
+									"ServerPlayerPing": "tcp__ServerPlayerPing",
+									"ServerPlayerDeathStatus": "tcp__ServerPlayerDeathStatus",
+									"ServerPlayerDeathTimer": "tcp__ServerPlayerDeathTimer",
+									"ServerPlayerDeathEnd": "tcp__ServerPlayerDeathEnd",
+									"ServerHeartbeat": "tcp__ServerHeartbeat",
+									"ServerTailsProjectileState": "tcp__ServerTailsProjectileState",
+									"ServerEggmanTrackerState": "tcp__ServerEggmanTrackerState",
+									"ServerBlackRingSpawn": "tcp__ServerBlackRingSpawn",
+									"ServerRMZSlimeState": "tcp__ServerRMZSlimeState",
+									"ServerRMZSlimeKilled": "tcp__ServerRMZSlimeKilled",
+									"ServerRMZShardState": "tcp__ServerRMZShardState",
+									"ServerLCEyeState": "tcp__ServerLCEyeState",
+									"ServerLCChainState": "tcp__ServerLCChainState",
+									"ServerNCLevelState": "tcp__ServerNCLevelState",
+									"ServerKAFMonitorState": "tcp__ServerKAFMonitorState",
+									"ServerYCRSmokeState": "tcp__ServerYCRSmokeState",
+									"ServerYCRSmokeReady": "tcp__ServerYCRSmokeReady",
+									"ServerSpikesState": "tcp__ServerSpikesState",
+									"ServerRingState": "tcp__ServerRingState",
+									"ServerRingCollected": "tcp__ServerRingCollected",
+									"ServerNAPSnowballState": "tcp__ServerNAPSnowballState",
+									"ServerNAPIceState": "tcp__ServerNAPIceState",
+									"ServerBlackRingState": "tcp__ServerBlackRingState",
+									"ServerBlackRingCollected": "tcp__ServerBlackRingCollected",
+									"ServerVVVaseDestroyed": "tcp__ServerVVVaseDestroyed",
+									"ServerGHZThunderState": "tcp__ServerGHZThunderState",
+									"ServerTCGomState": "tcp__ServerTCGomState",
+									"ServerExellerCloneState": "tcp__ServerExellerCloneState",
+									"ServerDTTailsDollState": "tcp__ServerDTTailsDollState",
+									"ServerDTAssState": "tcp__ServerDTAssState",
+									"ServerHDDoorState": "tcp__ServerHDDoorState",
+									"ClientEggmanTrackerSpawn": "tcp__ClientEggmanTrackerSpawn",
+									"ClientEggmanTrackerTrigger": "tcp__ClientEggmanTrackerTrigger",
+									"TailsProjectileFire": "tcp__ClientTailsProjectileFire",
+									"TailsProjectileHit": "tcp__ClientTailsProjectileHit",
+									"ClientExetiorDeeznuts": "tcp__ClientExetiorDeeznuts",
+									"ClientExetiorBlackRingSpawn": "tcp__ClientExetiorBlackRingSpawn",
+									"ClientExellerCloneSpawn": "tcp__ClientExellerCloneSpawn",
+									"ClientExellerCloneTeleport": "tcp__ClientExellerCloneTeleport",
+									"ClientRMZSlimeKill": "tcp__ClientRMZSlimeKill",
+									"ClientLCEyeActivate": "tcp__ClientLCEyeActivate",
+									"ClientKAFMonitorActivate": "tcp__ClientKAFMonitorActivate",
+									"ClientRingCollect": "tcp__ClientRingCollect",
+									"ClientBlackRingCollect": "tcp__ClientBlackRingCollect",
+									"ClientNPIceActivate": "tcp__ClientNPIceActivate",
+									"ClientPFElevatorActivate": "tcp__ClientPFElevatorActivate",
+									"ClientVVVaseBreak": "tcp__ClientVVVaseBreak",
+									"ClientRMZShardCollect": "tcp__ClientRMZShardCollect",
+									"ClientDTAssActivate": "tcp__ClientDTAssActivate",
+									"ClientHDDoorToggle": "tcp__ClientHDDoorToggle",
+									"ClientFZDummyPush": "tcp__ClientFZDummyPush",
+									"ClientLobbyReady": "tcp__ClientLobbyReady",
+									"PassthroughEmitSound": "tcp__PassthroughEmitSound",
+									"ClientRevivalProgress": "tcp__ClientRevivalProgress",
+									"ServerRevivalStatus": "tcp__ServerRevivalStatus",
+									"ServerRevivalSubtractRings": "tcp__ServerRevivalSubtractRings",
+									"ServerRevivalSuccess": "tcp__ServerRevivalSuccess",
+									"ClientCharacterRequest": "tcp__ClientCharacterRequest",
+									"ClientExeCharacterRequest": "tcp__ClientExeCharacterRequest",
+									"ClientMapVote": "tcp__ClientMapVote",
+									"ClientPlayerDeathStatus": "tcp__ClientPlayerDeathStatus",
+									"ClientPlayerEscaped": "tcp__ClientPlayerEscaped",
+									"ClientPlayerInfoRequest": "tcp__ClientPlayerInfoRequest",
+									"ClientCreamSpawnRings": "tcp__ClientCreamSpawnRings",
+									"PassthroughChatMessage": "tcp__PassthroughChatMessage",
+									"ClientLobbyVotekick": "tcp__ClientLobbyVotekick",
+									"UnusedPassthroughPlayerPallete": "tcp__UnusedPassthroughPlayerPallete",
+									"UnusedPassthroughPetPallete": "tcp__UnusedPassthroughPetPallete"
+								},
+								"default": "unimplemented"
+							}
+						]
+					}
+				]
+			],
+			"udp__ServerPong": [
+				"container",
+				[
+					{
+						"name": "timestamp",
+						"type": "lu64"
+					}
+				]
+			],
+			"udp__ServerAct9WallState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					}
+				]
+			],
+			"udp__ServerPFElevatorState": [
+				"container",
+				[
+					{
+						"name": "action",
+						"type": [
+							"mapper",
+							{
+								"type": "u8",
+								"mappings": {
+									"0x00": "Activated",
+									"0x01": "PositionUdp",
+									"0x02": "Stopped",
+									"0x03": "Ready"
+								}
+							}
+						]
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "action",
+								"fields": {
+									"Activated": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "activatedBy",
+												"type": "clientId"
+											}
+										]
+									],
+									"PositionUdp": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "activatedBy",
+												"type": "clientId"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Stopped": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "activatedBy",
+												"type": "clientId"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									],
+									"Ready": [
+										"container",
+										[
+											{
+												"name": "id",
+												"type": "entityId"
+											},
+											{
+												"name": "y",
+												"type": "lu16"
+											}
+										]
+									]
+								}
+							}
+						]
+					}
+				]
+			],
+			"udp__ServerVVLColumnState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "state",
+						"type": "u8"
+					},
+					{
+						"name": "y",
+						"type": "f32"
+					}
+				]
+			],
+			"udp__ServerDTTailsDollState": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					},
+					{
+						"name": "state",
+						"type": "u8"
+					}
+				]
+			],
+			"udp__ServerDTBallState": "f32",
+			"udp__ServerDTAssState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "entityId"
+					},
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					}
+				]
+			],
+			"udp__ServerFZDummyState": [
+				"container",
+				[
+					{
+						"name": "x",
+						"type": "lu16"
+					},
+					{
+						"name": "y",
+						"type": "lu16"
+					}
+				]
+			],
+			"udp__ClientPlayerState": [
+				"container",
+				[
+					{
+						"name": "id",
+						"type": "clientId"
+					},
+					{
+						"name": "x",
+						"type": "f32"
+					},
+					{
+						"name": "y",
+						"type": "f32"
+					},
+					{
+						"name": "additional",
+						"type": "unimplemented"
+					}
+				]
+			],
+			"udp__ClientPing": [
+				"container",
+				[
+					{
+						"name": "timestamp",
+						"type": "lu64"
+					},
+					{
+						"name": "calculated",
+						"type": "lu16"
+					}
+				]
+			],
+			"udp__ServerRevivalProgress": [
+				"container",
+				[
+					{
+						"name": "targetId",
+						"type": "clientId"
+					},
+					{
+						"name": "progress",
+						"type": "f64"
+					}
+				]
+			],
+			"udp_incoming": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "packet",
+						"type": "udp_packet"
+					}
+				]
+			],
+			"udp_outgoing": "udp_packet",
+			"udp_packet": [
+				"container",
+				[
+					{
+						"name": "type",
+						"type": "packet_type"
+					},
+					{
+						"name": "data",
+						"type": [
+							"switch",
+							{
+								"compareTo": "type",
+								"fields": {
+									"ServerPong": "udp__ServerPong",
+									"ServerAct9WallState": "udp__ServerAct9WallState",
+									"ServerPFElevatorState": "udp__ServerPFElevatorState",
+									"ServerVVLColumnState": "udp__ServerVVLColumnState",
+									"ServerDTTailsDollState": "udp__ServerDTTailsDollState",
+									"ServerDTBallState": "udp__ServerDTBallState",
+									"ServerDTAssState": "udp__ServerDTAssState",
+									"ServerFZDummyState": "udp__ServerFZDummyState",
+									"ClientPlayerState": "udp__ClientPlayerState",
+									"ClientPing": "udp__ClientPing",
+									"ServerRevivalProgress": "udp__ServerRevivalProgress"
+								},
+								"default": "unimplemented"
+							}
+						]
+					}
+				]
+			]
+		}
+	}
+}

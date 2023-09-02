@@ -1,0 +1,21 @@
+{
+  "name": "td2d-protocol",
+  "version": "1.0.0",
+  "description": "Protocol library for Sonic.EXE: The Disaster 2D Remake",
+  "main": "./src/index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Saiv46",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "protodef": "^1.15.0"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  }
+}
