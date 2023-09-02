@@ -1,10 +1,9 @@
 const { EventEmitter, once } = require('node:events')
 const { createServer } = require('node:net')
+const Protocol = require('../common/protocol')
 const UdpSocket = require('../common/udpStream')
 const TcpPacketParser = require('../common/tcpParser')
-const TcpPacketSerializer = require('../common/tcpSerializer')
-const UdpServerParser = require('./udpParser')
-const UdpServerSerializer = require('./udpSerializer')
+const TcpPacketSerialize = require('../common/tcpSerializer')
 const GameTimers = require('../common/gameTimers')
 const { addAbortSignal } = require('node:stream')
 
@@ -28,7 +27,6 @@ class ServerClient extends EventEmitter {
     const { version } = this.options
     const { signal } = this.abortController
     this.tcpParser = new TcpPacketParser(version, signal)
-    this.tcpSerializer = new TcpPacketSerializer(version, signal)
     addAbortSignal(this.abortController.signal, this.tcpSocket)
 
     this.tcpSocket.setTimeout(this.options.timeout)
@@ -36,20 +34,18 @@ class ServerClient extends EventEmitter {
     this.tcpSocket.once('error', this._errorHandler.bind(this))
     this.tcpSocket.once('timeout', () => this.destroy(new Error('TCP timeout')))
     this.tcpSocket.pipe(this.tcpParser)
-    this.tcpSerializer.pipe(this.tcpSocket)
     this.emit('connect')
 
     this.tcpParser.on('data', this.emit.bind(this, 'data'))
     this.tcpParser.on('error', this._errorHandler.bind(this))
-    this.tcpSerializer.on('error', this._errorHandler.bind(this))
     signal.addEventListener('abort', () => this.emit('close', signal.reason.cause))
     this.on('data', packet => this.emit(packet.type, packet.data, packet.passthrough))
   }
 
-  write (type, data, passthrough = false) {
-    const packet = { passthrough, type, data }
+  write (type, data) {
+    const packet = { passthrough: false, type, data }
     this.emit('write', packet)
-    return this.tcpSerializer.write(packet)
+    return this.writeRaw(TcpPacketSerialize(packet, this.options.version))
   }
 
   writeRaw (buf) {
@@ -60,7 +56,7 @@ class ServerClient extends EventEmitter {
     if (!this.rinfo) throw new Error('Not connected yet')
     const packet = { type, data }
     this.emit('write', packet)
-    return this.server.udpSerializer.write([{ clientId: this.clientId, packet }, this.rinfo])
+    return this.writeUdpRaw(UdpServerSerialize(packet, this.options.version))
   }
 
   writeUdpRaw (buf) {
@@ -74,7 +70,6 @@ class ServerClient extends EventEmitter {
   }
 
   destroy (error) {
-    this.server = null
     this.tcpSocket?.unref()
     if (error) this.emit('error', error)
     this.abortController.abort(error)
@@ -106,12 +101,6 @@ class Server extends EventEmitter {
     this.tcpServer = null
     this.udpServer = null
     const { signal } = this.abortController
-    this.udpParser = new UdpServerParser(this.options.version, signal)
-    this.udpSerializer = new UdpServerSerializer(this.options.version, signal)
-    this.udpParser.on('data', this._udpHandler.bind(this))
-    this.udpParser.on('error', this._errorHandler.bind(this))
-    this.udpSerializer.on('error', this._errorHandler.bind(this))
-
     signal.addEventListener('abort', () => this.emit('close', signal.reason.cause))
   }
 
@@ -167,13 +156,13 @@ class Server extends EventEmitter {
       once(this.udpServer, 'error')
     ])
     if (error) throw error
-    this.udpServer.pipe(this.udpParser)
-    this.udpSerializer.pipe(this.udpServer)
+    this.udpServer.on('data', this._udpHandler.bind(this))
     this.udpServer.once('error', this._errorHandler.bind(this))
     this.emit('ready')
   }
 
-  _udpHandler ([{ clientId, packet }, rinfo]) {
+  _udpHandler ([buf, rinfo]) {
+    const { clientId, packet } = UdpServerParse(buf, this.options.version)
     const client = this.clients.get(clientId)
     if (!client) return
     if (!client.rinfo) {
@@ -204,6 +193,16 @@ class Server extends EventEmitter {
     }
     throw new Error('Cannot get random ID')
   }
+
+function UdpServerParse (buffer, version) {
+  return Protocol[version].read(buffer, 0, 'udp_incoming').value
+}
+
+function UdpServerSerialize (packet, version) {
+  const length = Protocol[version].sizeOf(packet, 'udp_outgoing')
+  const buffer = Buffer.allocUnsafe(length + 1)
+  Protocol[version].write(packet, buffer, 1, 'udp_outgoing')
+  return buffer
 }
 
 module.exports = Server
