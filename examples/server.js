@@ -24,20 +24,13 @@ async function main () {
     console.log(identity.username, 'joined!')
     client.write('ServerStatus', { clientId: client.clientId, isLobby: true })
     client.on('data', packet => {
-      if (packet.passthrough) {
-        for (const client of server.clients.values()) {
-          client.write(packet.type, packet.data)
-        }
-      }
+      if (packet.passthrough) server.broadcast(packet.type, packet.data)
     })
     client.on('PassthroughChatMessage', ({ message }) => console.log(identity.username, ':', message))
+    client.on('ClientPlayerState', data => server.broadcastUdp('ClientPlayerState', data))
   })
 
-  setInterval(() => {
-    for (const client of server.clients.values()) {
-      client.write('ServerHeartbeat')
-    }
-  }, 2 * GameTimers.Second)
+  setInterval(() => server.broadcast('ServerHeartbeat'), 2 * GameTimers.Second)
 }
 
 main().catch(err => console.trace(err))

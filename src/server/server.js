@@ -194,6 +194,27 @@ class Server extends EventEmitter {
     throw new Error('Cannot get random ID')
   }
 
+  broadcast (type, data) {
+    this.broadcastRaw(TcpPacketSerialize({ passthrough: false, type, data }, this.options.version))
+  }
+
+  broadcastRaw (buf) {
+    for (const client of this.clients.values()) {
+      client.writeRaw(buf)
+    }
+  }
+
+  broadcastUdp (type, data) {
+    this.broadcastUdpRaw(UdpServerSerialize({ type, data }, this.options.version))
+  }
+
+  broadcastUdpRaw (buf) {
+    for (const client of this.clients.values()) {
+      if (client.rinfo) client.writeUdpRaw(buf)
+    }
+  }
+}
+
 function UdpServerParse (buffer, version) {
   return Protocol[version].read(buffer, 0, 'udp_incoming').value
 }
