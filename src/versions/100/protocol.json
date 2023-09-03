@@ -5,8 +5,8 @@
 		"lu16": "native",
 		"lu32": "native",
 		"lu64": "native",
-		"f32": "native",
-		"f64": "native",
+		"lf32": "native",
+		"lf64": "native",
 		"bool": "native",
 		"cstring": "native",
 		"void": "native",
@@ -130,7 +130,7 @@
 						"0x5d": "ClientFZDummyPush",
 						"0x5e": "ClientLobbyReady",
 						"0x5f": "UnusedClientRequestedInfo",
-						"0x60": "ClientPlayerState",
+						"0x60": "PassthroughPlayerState",
 						"0x61": "UnusedClientPlayerHurt",
 						"0x62": "PassthroughEmitSound",
 						"0x63": "ClientPing",
@@ -1099,7 +1099,7 @@
 											},
 											{
 												"name": "frame",
-												"type": "f64"
+												"type": "lf64"
 											}
 										]
 									],
@@ -1324,11 +1324,11 @@
 				[
 					{
 						"name": "x",
-						"type": "f32"
+						"type": "lf32"
 					},
 					{
 						"name": "y",
-						"type": "f32"
+						"type": "lf32"
 					}
 				]
 			],
@@ -1476,7 +1476,7 @@
 				"container",
 				[
 					{
-						"name": "isAlive",
+						"name": "isDead",
 						"type": "bool"
 					},
 					{
@@ -1815,7 +1815,7 @@
 					},
 					{
 						"name": "y",
-						"type": "f32"
+						"type": "lf32"
 					}
 				]
 			],
@@ -1836,7 +1836,7 @@
 					}
 				]
 			],
-			"udp__ServerDTBallState": "f32",
+			"udp__ServerDTBallState": "lf32",
 			"udp__ServerDTAssState": [
 				"container",
 				[
@@ -1867,24 +1867,44 @@
 					}
 				]
 			],
-			"udp__ClientPlayerState": [
+			"udp__PassthroughPlayerState": [
 				"container",
 				[
 					{
-						"name": "id",
+						"name": "clientId",
 						"type": "clientId"
 					},
 					{
 						"name": "x",
-						"type": "f32"
+						"type": "lf32"
 					},
 					{
 						"name": "y",
-						"type": "f32"
+						"type": "lf32"
 					},
 					{
-						"name": "additional",
-						"type": "unimplemented"
+						"name": "animation",
+						"type": "u8"
+					},
+					{
+						"name": "angle",
+						"type": "lu16"
+					},
+					{
+						"name": "frame",
+						"type": "u8"
+					},
+					{
+						"name": "scale",
+						"type": "i8"
+					},
+					{
+						"name": "effectTime",
+						"type": "u8"
+					},
+					{
+						"name": "stunTime",
+						"type": "u8"
 					}
 				]
 			],
@@ -1910,7 +1930,7 @@
 					},
 					{
 						"name": "progress",
-						"type": "f64"
+						"type": "lf64"
 					}
 				]
 			],
@@ -1950,7 +1970,7 @@
 									"ServerDTBallState": "udp__ServerDTBallState",
 									"ServerDTAssState": "udp__ServerDTAssState",
 									"ServerFZDummyState": "udp__ServerFZDummyState",
-									"ClientPlayerState": "udp__ClientPlayerState",
+									"PassthroughPlayerState": "udp__PassthroughPlayerState",
 									"ClientPing": "udp__ClientPing",
 									"ServerRevivalProgress": "udp__ServerRevivalProgress"
 								},
