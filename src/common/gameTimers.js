@@ -16,8 +16,8 @@ class GameTimers {
   static DynamicPeriodRange = this.MaxDynamicReriod - this.MinDynamicPeriod
   static async * dynamicTick (signal) {
     let time = performance.now()
-    let util1
-    let util2
+    let util1 = performance.eventLoopUtilization()
+    let util2 = performance.eventLoopUtilization(util1)
     while (!signal.aborted) {
       const util = performance.eventLoopUtilization(util1, util2)
       util1 = util2
