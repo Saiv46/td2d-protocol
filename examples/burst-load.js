@@ -27,16 +27,16 @@ function createClient () {
   client.connect().then(() => {
     client.write('ClientIdentity', {
       version,
-      username: 'saivbot' + Math.random(),
+      username: 'saivbot' + (Math.random() * 100 | 0),
       icon: Enums.icons.byId.at(Math.random() * Enums.icons.length | 0),
       pet: Enums.pets.byId.at(Math.random() * Enums.pets.length | 0),
       os: Enums.os.byId.at(Math.random() * Enums.os.length | 0),
       uuid: 'saivbot' + Math.random()
     })
     client.once('ServerStatus', ({ clientId }) => {
-      client.write('PassthroughChatMessage', { sender: clientId, message: 'hello world!' }, true)
+      client.write('PassthroughChatMessage', { sender: clientId, message: 'hello world' }, true)
       completed++
-      client.destroy()
+      setImmediate(client.destroy.bind(client))
     })
     client.once('error', onError)
     client.once('close', onCompleted)
