@@ -1,7 +1,7 @@
 const version = 100
 const { Client, Enums: { [version]: Enums } } = require('..')
 
-const ClientsPerMinute = 100
+const ClientsPerMinute = 30
 
 let failed = 0
 const clients = new Set()
@@ -30,23 +30,34 @@ function createClient () {
       os: Enums.os.byId.at(Math.random() * Enums.os.length | 0),
       uuid: 'saivbot' + Math.random()
     })
-    client.once('ServerStatus', ({ clientId }) => { client.clientId = clientId })
+    client.once('ServerStatus', ({ clientId }) => {
+      client.clientId = clientId
+      client.write('PassthroughChatMessage', { clientId: client.clientId, message: 'hello world' }, true)
+      client.write('ClientLobbyReady', true)
+    })
+    client.on('ServerCharSelectStart', ({ currentEXE }) => {
+      client.write(currentEXE === client.clientId ? 'ClientExeCharacterRequest' : 'ClientCharacterRequest', 1)
+    })
     client.once('error', onFail)
     client.once('close', () => clients.delete(client))
   }, onFail).finally(() => connecting.delete(client))
 }
 
 const startTime = Date.now()
+let timestamp = performance.now()
 setInterval(() => {
   const players = Math.floor((Date.now() - startTime) / 60000 * ClientsPerMinute)
   while (connecting.size + clients.size + failed < players) createClient()
+  const calculated = performance.now() - timestamp
+  timestamp = performance.now()
+  const additional = Buffer.allocUnsafe(0)
   for (const client of clients) {
+    client.writeUdp('ClientPing', { timestamp, calculated })
     client.writeUdp('ClientPlayerState', {
       clientId: client.clientId,
-      x: Math.random(),
-      y: Math.random(),
-      additional: Buffer.allocUnsafe(0)
+      x: Math.random() * 2000 + 1000,
+      y: Math.random() * 2000 + 1000,
+      additional
     })
-    client.write('PassthroughChatMessage', { clientId: client.clientId, message: 'hello world' }, true)
   }
 }, 15)
