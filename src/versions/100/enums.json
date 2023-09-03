@@ -66,7 +66,7 @@
 		"FartZone"
 	],
 	"characters": [
-		"Exe",
+		null,
 		"Tails",
 		"Knuckles",
 		"Eggman",
@@ -75,7 +75,7 @@
 		"Sally"
 	],
 	"exeCharacters": [
-		"",
+		null,
 		"Original",
 		"Chaos",
 		"Exetior",

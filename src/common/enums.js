@@ -1,7 +1,7 @@
 const versions = require('../versions')
 
 function enumGeneric (byId) {
-  const defaultVal = byId.includes(null) ? -1 : 0
+  const defaultVal = byId.indexOf(null) === byId.length - 1 ? -1 : (byId.indexOf(null) + 1)
   const byName = Object.fromEntries(byId.filter(v => v !== null).map((v, i) => ([v, i])))
   return {
     byId,
