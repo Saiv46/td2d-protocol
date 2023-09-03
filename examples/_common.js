@@ -38,7 +38,7 @@ function validateIdentity (server, client) {
 }
 
 function normalizeUsername (username) {
-  return username.replaceAll(/[^a-zа-я \\№;`@/&~|]+/g, '').replaceAll(/[ \\№;`@/&~|]{2,}/g, '$1').trim()
+  return username.replaceAll(/[^a-zа-я0-9 \\№;`@/&~|]+/g, '').replaceAll(/[ \\№;`@/&~|]{2,}/g, m => m.at(-1)).trim()
 }
 
 module.exports = { passthroughHandler, otherClients, validateIdentity, normalizeUsername }
