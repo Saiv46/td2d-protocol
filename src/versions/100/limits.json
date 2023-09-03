@@ -1,0 +1,36 @@
+{
+	"maxSpeedX": 2064,
+	"maxSpeedY": 526,
+	"capabilities": {
+		"characters": {
+			"Tails": {
+				"projectileMaxDamage": 6,
+				"projectileMaxCharge": 5,
+				"projectileRecharge": 5
+			},
+			"Knuckles": {},
+			"Eggman": {},
+			"Amy": {},
+			"Cream": {},
+			"Sally": {}
+		},
+		"exeCharacters": {
+			"Original": {
+				"invisibilityDuration": 15,
+				"invisibilityRecharge": 20
+			},
+			"Chaos": {
+				"waterDuration": 15,
+				"waterRecharge": 20
+			},
+			"Exetior": {
+				"blackRingsEnabled": true,
+				"blackRingRecharge": 42
+			},
+			"Exeller": {
+				"clonesEnabled": true,
+				"clonesRecharge": 3
+			}
+		}
+	}
+}
