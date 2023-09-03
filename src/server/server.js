@@ -138,6 +138,8 @@ class Server extends EventEmitter {
       client.clientId = id
       this.clients.set(id, client)
       this.emit('connection', client)
+      client.once('error', this.emit.bind(this, 'clienterror'))
+      client.once('close', () => this.clients.delete(id))
     } catch (err) {
       this.emit('error', err)
       if (!this.emit('drop', client)) client.destroy()
@@ -180,6 +182,9 @@ class Server extends EventEmitter {
     this.tcpServer?.unref()
     if (error) this.emit('error', error)
     this.abortController.abort(error)
+    for (const client of this.clients.values()) {
+      client.destroy()
+    }
   }
 
   _getRandomId () {

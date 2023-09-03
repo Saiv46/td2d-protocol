@@ -27,10 +27,12 @@ class TcpPacketParser extends Transform {
         }
         const length = this.buffer.readUInt8(index++)
         if (this.buffer.length < index + length) break
-        slice = index + length
-        const packet = this.protocol.read(this.buffer, index, 'tcp_packet').value
-        index += length
-        if (!this.push(packet)) break
+        try {
+          const packet = this.protocol.read(this.buffer, index, 'tcp_packet').value
+          slice = index + length
+          index += length
+          if (!this.push(packet)) break
+        } catch {}
       }
       callback()
     } catch (err) {
