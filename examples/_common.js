@@ -16,7 +16,7 @@ function * otherClients (server, exception = null) {
 }
 
 function validateIdentity (server, client) {
-  const { version} = server.options
+  const { version } = server.options
   const { identity } = client
   try {
     assert.strictEqual(identity.version, version, 'incompatible version')
@@ -28,7 +28,7 @@ function validateIdentity (server, client) {
     identity.uuid = identity.uuid.trim()
     assert(identity.uuid.length > 0, 'uuid required')
     for (const client2 of otherClients(server, client)) {
-      if (client2.identity.uuid === identity.uuid) client2.destroy('Only one client allowed per UUID')
+      if (client2.identity.uuid === identity.uuid) client2.destroy()
     }
     return true
   } catch (err) {
