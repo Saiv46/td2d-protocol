@@ -6,7 +6,7 @@ async function main () {
   // Connection
   const bot = await createConnection({
     version,
-    host: 'localhost',
+    host: process.env.HOST ?? 'localhost',
     portTcp: 7606,
     portUdp: 8606
   })
