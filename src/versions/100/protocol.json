@@ -135,7 +135,7 @@
 						"0x62": "PassthroughEmitSound",
 						"0x63": "ClientPing",
 						"0x64": "ClientRevivalProgress",
-						"0x65": "UnusedClientHeal",
+						"0x65": "PassthroughPlayerHeal",
 						"0x66": "UnusedClientHealPartial",
 						"0x67": "ServerRevivalProgress",
 						"0x68": "ServerRevivalStatus",
@@ -1454,6 +1454,7 @@
 					}
 				]
 			],
+			"tcp__PassthroughPlayerHeal": "clientId",
 			"tcp__ServerRevivalStatus": [
 				"container",
 				[
@@ -1664,6 +1665,7 @@
 									"ClientLobbyReady": "tcp__ClientLobbyReady",
 									"PassthroughEmitSound": "tcp__PassthroughEmitSound",
 									"ClientRevivalProgress": "tcp__ClientRevivalProgress",
+									"PassthroughPlayerHeal": "tcp__PassthroughPlayerHeal",
 									"ServerRevivalStatus": "tcp__ServerRevivalStatus",
 									"ServerRevivalSubtractRings": "tcp__ServerRevivalSubtractRings",
 									"ServerRevivalSuccess": "tcp__ServerRevivalSuccess",
