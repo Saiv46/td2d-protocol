@@ -1,3 +1,4 @@
+const debug = require('debug')('td2d-protocol:client')
 const { EventEmitter, once } = require('node:events')
 const { createConnection } = require('node:net')
 const Protocol = require('../common/protocol')
@@ -7,10 +8,13 @@ const TcpPacketParser = require('../common/tcpParser')
 const TcpPacketSerialize = require('../common/tcpSerializer')
 const GameTimers = require('../common/gameTimers')
 
+const debugPacket = debug.extend('packet')
+const debugWrite = debug.extend('write')
+
 // Events:
 // - error (error: Error)
 // - close (error: AbortError)
-// - [PacketType] (data: any, passthrough: boolean)
+// - [PacketType] (data: any)
 // - data (packet: Packet)
 // - write (packet: Packet)
 
@@ -24,7 +28,7 @@ class Client extends EventEmitter {
     abortController: null
   }
 
-  constructor (options) {
+  constructor (options = {}) {
     super({ captureRejections: true })
     this.options = Object.assign({}, Client.DefaultOptions, options)
     this.abortController = this.options.abortController ?? new AbortController()
@@ -38,7 +42,19 @@ class Client extends EventEmitter {
     this.tcpParser.on('data', this.emit.bind(this, 'data'))
     this.tcpParser.on('error', this._errorHandler.bind(this))
     signal.addEventListener('abort', () => this.emit('close', signal.reason.cause))
-    this.on('data', packet => this.emit(packet.type, packet.data, packet.passthrough))
+    this.on('data', packet => this.emit(packet.type, packet.data))
+
+    {
+      const uniqueId = Math.random() * 0xffff | 0
+      this.logger = debug.extend(uniqueId, '@')
+      this.loggerPacket = debugPacket.extend(uniqueId, '@')
+      this.loggerWrite = debugWrite.extend(uniqueId, '@')
+    }
+    this.logger('Created', this.options)
+    this.on('error', err => this.logger(err))
+    this.on('close', () => this.logger('Disconnected'))
+    this.on('data', packet => this.loggerPacket(packet.type, packet.data))
+    this.on('write', packet => this.loggerWrite(packet.type, packet.data, packet.passthrough ?? '[UDP]'))
   }
 
   async connect () {
@@ -49,6 +65,7 @@ class Client extends EventEmitter {
   }
 
   async tcpConnect () {
+    this.logger('Connecting to %s:%d/tcp', this.options.host ?? 'localhost', this.options.portTcp)
     this.tcpSocket = createConnection({
       port: this.options.portTcp,
       host: this.options.host,
@@ -82,6 +99,7 @@ class Client extends EventEmitter {
   }
 
   async udpConnect () {
+    this.logger('Connecting to %s:%d/udp', this.options.host ?? 'localhost', this.options.portUdp)
     this.udpSocket = new UdpSocket.Client({
       port: this.options.portUdp,
       host: this.options.host,
@@ -118,6 +136,7 @@ class Client extends EventEmitter {
   }
 
   destroy (error) {
+    if (this.abortController.signal.aborted) return
     this.tcpSocket?.unref()
     if (error) this.emit('error', error)
     this.abortController.abort(error)
