@@ -2,6 +2,10 @@ const { once } = require('node:events')
 const { createConnection, Enums } = require('..')
 const version = 100
 
+if (!process.env.DEBUG) {
+  console.log('🛈 Try running this with environment variable set as DEBUG=*')
+}
+
 async function main () {
   // Connection
   const bot = await createConnection({
@@ -21,6 +25,7 @@ async function main () {
     os: Enums[version].os.byName.Linux,
     uuid: 'saivbot'
   })
+  bot.once('ServerDisconnectReason', reason => console.error('Disconnect reason:', reason))
   const [{ clientId, isLobby }] = await once(bot, 'ServerStatus')
   bot.clientId = clientId
   console.log('Bot joined!')

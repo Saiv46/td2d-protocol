@@ -40,8 +40,6 @@ function describeType (typeDef) {
 }
 
 for (let packetName in packetDefinition) {
-  if (packetName === 'packet_type') continue
-  if (!packetName.includes('__') && packetName.includes('_')) continue
   const type = describeType(packetDefinition[packetName])
   if (packetName.includes('__')) {
     const [proto, name] = packetName.split('__')
