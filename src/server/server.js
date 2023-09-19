@@ -199,8 +199,12 @@ class Server extends EventEmitter {
     throw new Error('Cannot get random ID')
   }
 
+  serializePacket (type, data) {
+    return TcpPacketSerialize({ passthrough: false, type, data }, this.options.version)
+  }
+
   broadcast (type, data) {
-    this.broadcastRaw(TcpPacketSerialize({ passthrough: false, type, data }, this.options.version))
+    this.broadcastRaw(this.serializePacket(type, data))
   }
 
   broadcastRaw (buf) {
@@ -209,8 +213,12 @@ class Server extends EventEmitter {
     }
   }
 
+  serializePacketUdp (type, data) {
+    return UdpServerSerialize({ type, data }, this.options.version)
+  }
+
   broadcastUdp (type, data) {
-    this.broadcastUdpRaw(UdpServerSerialize({ type, data }, this.options.version))
+    this.broadcastUdpRaw(this.serializePacketUdp(type, data))
   }
 
   broadcastUdpRaw (buf) {
