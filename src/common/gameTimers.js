@@ -22,7 +22,7 @@ class GameTimers {
       const util = performance.eventLoopUtilization(util1, util2)
       util1 = util2
       util2 = util
-      await timers.setTimeout((1 - util.utilization) * this.DynamicPeriodRange + this.MinDynamicReriod)
+      await this.wait((1 - util.utilization) * this.DynamicPeriodRange + this.MinDynamicReriod, signal)
       const now = performance.now()
       const delta = (now - time) / this.Period
       time = now
@@ -39,6 +39,18 @@ class GameTimers {
       time = now
       yield delta
     }
+  }
+
+  static async * steadyInterval (seconds, signal) {
+    yield
+    // eslint-disable-next-line no-unused-vars
+    for await (const _ of timers.setInterval((seconds ?? 1) * this.Second, undefined, { signal })) {
+      yield
+    }
+  }
+
+  static async wait (ms = 0, signal) {
+    return timers.setTimeout(ms, undefined, { signal })
   }
 }
 
