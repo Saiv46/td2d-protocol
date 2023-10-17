@@ -10,7 +10,13 @@ async function createConnection (options = {}) {
     options.legacyIP = family === 4
   }
   const client = new Client(options)
-  await client.connect()
+  try {
+    await client.connect()
+    client.logger('Connected')
+  } catch (err) {
+    client.logger('Failed to connect due to', err)
+    throw err
+  }
   return client
 }
 
