@@ -11,7 +11,9 @@
 			"Knuckles": {},
 			"Eggman": {},
 			"Amy": {},
-			"Cream": {},
+			"Cream": {
+				"healRecharge": 5
+			},
 			"Sally": {}
 		},
 		"exeCharacters": {
@@ -24,11 +26,9 @@
 				"waterRecharge": 20
 			},
 			"Exetior": {
-				"blackRingsEnabled": true,
 				"blackRingRecharge": 42
 			},
 			"Exeller": {
-				"clonesEnabled": true,
 				"clonesRecharge": 3
 			}
 		}
