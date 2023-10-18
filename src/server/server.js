@@ -53,8 +53,8 @@ class ServerClient extends EventEmitter {
     }
     this.on('error', err => this.logger(err))
     this.on('close', () => this.logger('Disconnected'))
-    this.on('data', packet => this.loggerPacket(packet.type, packet.data))
-    this.on('write', packet => this.loggerWrite(packet.type, packet.data, packet.passthrough ?? '[UDP]'))
+    this.on('data', packet => packet.passthrough !== undefined && this.loggerPacket(packet.type, packet.data))
+    this.on('write', packet => packet.passthrough !== undefined && this.loggerWrite(packet.type, packet.data))
   }
 
   write (type, data) {

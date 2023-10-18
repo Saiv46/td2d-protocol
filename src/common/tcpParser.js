@@ -21,9 +21,12 @@ class TcpPacketParser extends Transform {
     try {
       while (true) {
         if (this.buffer.length < index) break
-        if (this.useHeader && this.buffer.compare(Header100, 0, Header100.length, index, index += Header100.length) !== 0) {
-          this.buffer = Buffer.allocUnsafe(0)
-          break
+        if (this.useHeader) {
+          if (this.buffer.length < index + Header100.length) break
+          if (this.buffer.compare(Header100, 0, Header100.length, index, index += Header100.length) !== 0) {
+            this.buffer = Buffer.allocUnsafe(0)
+            break
+          }
         }
         const length = this.buffer.readUInt8(index++)
         if (this.buffer.length < index + length) break
