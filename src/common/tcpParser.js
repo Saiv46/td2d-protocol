@@ -1,8 +1,7 @@
 const { Transform } = require('node:stream')
 const Protocol = require('./protocol')
 
-const Header = Buffer.from('hPKT\0')
-const MinLength = Header.length + 3
+const Header100 = Buffer.from('hPKT\0')
 
 class TcpPacketParser extends Transform {
   constructor (version, signal) {
@@ -11,6 +10,7 @@ class TcpPacketParser extends Transform {
       signal
     })
     this.protocol = Protocol[version]
+    this.useHeader = version === 100
     this.buffer = Buffer.allocUnsafe(0)
   }
 
@@ -20,8 +20,8 @@ class TcpPacketParser extends Transform {
     let slice = 0
     try {
       while (true) {
-        if (this.buffer.length < index + MinLength) break
-        if (this.buffer.compare(Header, 0, Header.length, index, index += Header.length) !== 0) {
+        if (this.buffer.length < index) break
+        if (this.useHeader && this.buffer.compare(Header100, 0, Header100.length, index, index += Header100.length) !== 0) {
           this.buffer = Buffer.allocUnsafe(0)
           break
         }

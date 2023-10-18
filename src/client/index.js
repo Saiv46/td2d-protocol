@@ -4,6 +4,7 @@ const Client = require('./client')
 
 async function createConnection (options = {}) {
   assert(options.host, 'options.host required')
+  assert(options.version, 'options.version required')
   {
     const { address, family } = await lookup(options.host)
     options.host = address
