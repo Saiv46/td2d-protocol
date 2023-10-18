@@ -1,3 +1,4 @@
+const debug = require('debug')('td2d-protocol:server')
 const { EventEmitter, once } = require('node:events')
 const { createServer } = require('node:net')
 const Protocol = require('../common/protocol')
@@ -6,6 +7,9 @@ const TcpPacketParser = require('../common/tcpParser')
 const TcpPacketSerialize = require('../common/tcpSerializer')
 const GameTimers = require('../common/gameTimers')
 const { addAbortSignal } = require('node:stream')
+
+const debugPacket = debug.extend('packet')
+const debugWrite = debug.extend('write')
 
 // Events:
 // - error (error: Error)
@@ -40,6 +44,17 @@ class ServerClient extends EventEmitter {
     this.tcpParser.on('error', this._errorHandler.bind(this))
     signal.addEventListener('abort', () => this.emit('close', signal.reason.cause))
     this.on('data', packet => this.emit(packet.type, packet.data, packet.passthrough))
+
+    {
+      const uniqueId = Math.random() * 0xffff | 0
+      this.logger = server.logger.extend(uniqueId, '@')
+      this.loggerPacket = server.loggerPacket.extend(uniqueId, '@')
+      this.loggerWrite = server.loggerWrite.extend(uniqueId, '@')
+    }
+    this.on('error', err => this.logger(err))
+    this.on('close', () => this.logger('Disconnected'))
+    this.on('data', packet => this.loggerPacket(packet.type, packet.data))
+    this.on('write', packet => this.loggerWrite(packet.type, packet.data, packet.passthrough ?? '[UDP]'))
   }
 
   write (type, data) {
@@ -102,6 +117,14 @@ class Server extends EventEmitter {
     this.udpServer = null
     const { signal } = this.abortController
     signal.addEventListener('abort', () => this.emit('close', signal.reason.cause))
+    this.logger = debug
+    this.loggerPacket = debugPacket
+    this.loggerWrite = debugWrite
+    this.logger('Created', this.options)
+    this.on('error', err => this.logger(err))
+    this.on('connection', client => this.logger(`New connection #${client.clientId}`))
+    this.on('listening', () => this.logger(`TCP server listening on ${this.options.portTcp}/tcp`))
+    this.on('ready', () => this.logger(`UDP server listening on ${this.options.portUdp}/udp`))
   }
 
   async listen () {

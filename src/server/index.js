@@ -8,7 +8,13 @@ async function createServer (options = {}) {
     options.legacyIP = family === 4
   }
   const server = new Server(options)
-  await server.listen()
+  try {
+    await server.listen()
+    server.logger('Successfully started')
+  } catch (err) {
+    server.logger('Failed to listen due to', err)
+    throw err
+  }
   return server
 }
 
