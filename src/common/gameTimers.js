@@ -8,7 +8,8 @@ class GameTimers {
   // Not actually a second, but everyone's hosting on mom's PC
   // running Windows, so HanderDev put 15ms tick period for it to work
   static Period = 15
-  static Second = 60 * this.Period
+  static TickRate = 60
+  static Second = this.TickRate * this.Period
 
   //
   static MinDynamicPeriod = 1000 / this.MinTickRate

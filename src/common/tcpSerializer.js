@@ -5,6 +5,9 @@ module.exports = function TcpPacketSerialize (packet, version) {
   const useHeader = version === 100
   const HeaderLen = useHeader * Header.length
   const size = Protocol[version].sizeOf(packet, 'tcp_packet')
+  if (Number.isNaN(size)) {
+    throw new Error(`Invalid packet ${JSON.stringify(packet)}`)
+  }
   const buffer = Buffer.allocUnsafe(HeaderLen + 1 + size)
   Protocol[version].write(packet, buffer, HeaderLen + 1, 'tcp_packet')
   if (useHeader) Header.copy(buffer)

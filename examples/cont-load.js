@@ -53,11 +53,16 @@ setInterval(() => {
   const additional = Buffer.allocUnsafe(0)
   for (const client of clients) {
     client.writeUdp('ClientPing', { timestamp, calculated })
-    client.writeUdp('ClientPlayerState', {
+    client.writeUdp('PassthroughPlayerState', {
       clientId: client.clientId,
-      x: Math.random() * 2000 + 1000,
-      y: Math.random() * 2000 + 1000,
-      additional
+      x: Math.floor(Math.random() * 2000 + 1000),
+      y: Math.floor(Math.random() * 2000 + 1000),
+      animation: 0,
+      angle: 0,
+      frame: 0,
+      scale: 1,
+      effectTime: 0,
+      stunTime: 0
     })
   }
 }, 15)
