@@ -483,19 +483,6 @@
 			"tcp__ServerReturnToLobby": "void",
 			"tcp__ServerGameTimer": "lu16",
 			"tcp__ServerGameTimeOver": "void",
-			"tcp__ServerPlayerPing": [
-				"container",
-				[
-					{
-						"name": "clientId",
-						"type": "clientId"
-					},
-					{
-						"name": "calculated",
-						"type": "lu16"
-					}
-				]
-			],
 			"tcp__ServerPlayerDeathStatus": [
 				"container",
 				[
@@ -1611,7 +1598,6 @@
 									"ServerReturnToLobby": "tcp__ServerReturnToLobby",
 									"ServerGameTimer": "tcp__ServerGameTimer",
 									"ServerGameTimeOver": "tcp__ServerGameTimeOver",
-									"ServerPlayerPing": "tcp__ServerPlayerPing",
 									"ServerPlayerDeathStatus": "tcp__ServerPlayerDeathStatus",
 									"ServerPlayerDeathTimer": "tcp__ServerPlayerDeathTimer",
 									"ServerPlayerDeathEnd": "tcp__ServerPlayerDeathEnd",
@@ -1684,6 +1670,19 @@
 								"default": "unimplemented"
 							}
 						]
+					}
+				]
+			],
+			"udp__ServerPlayerPing": [
+				"container",
+				[
+					{
+						"name": "clientId",
+						"type": "clientId"
+					},
+					{
+						"name": "calculated",
+						"type": "lu16"
 					}
 				]
 			],
@@ -1964,6 +1963,7 @@
 							{
 								"compareTo": "type",
 								"fields": {
+									"ServerPlayerPing": "udp__ServerPlayerPing",
 									"ServerPong": "udp__ServerPong",
 									"ServerAct9WallState": "udp__ServerAct9WallState",
 									"ServerPFElevatorState": "udp__ServerPFElevatorState",
