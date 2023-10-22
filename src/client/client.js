@@ -149,6 +149,9 @@ function UdpClientParse (buffer, version) {
 
 function UdpClientSerialize (packet, version) {
   const length = Protocol[version].sizeOf(packet, 'udp_incoming')
+  if (Number.isNaN(length)) {
+    throw new Error(`Invalid packet ${JSON.stringify(packet)}`)
+  }
   const buffer = Buffer.allocUnsafe(length)
   Protocol[version].write(packet, buffer, 0, 'udp_incoming')
   return buffer
