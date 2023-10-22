@@ -18,6 +18,8 @@ const debugWrite = debug.extend('write')
 // - data (packet: Packet)
 // - write (packet: Packet)
 
+const FilteredPacketName = 'PassthroughPlayerState'
+
 class ServerClient extends EventEmitter {
   constructor (server, tcpSocket) {
     super({ captureRejections: true })
@@ -53,8 +55,8 @@ class ServerClient extends EventEmitter {
     }
     this.on('error', err => this.logger(err))
     this.on('close', () => this.logger('Disconnected'))
-    this.on('data', packet => packet.passthrough !== undefined && this.loggerPacket(packet.type, packet.data))
-    this.on('write', packet => packet.passthrough !== undefined && this.loggerWrite(packet.type, packet.data))
+    this.on('data', packet => packet.type !== FilteredPacketName && this.loggerPacket(packet.type, packet.data))
+    this.on('write', packet => packet.type !== FilteredPacketName && this.loggerWrite(packet.type, packet.data))
   }
 
   write (type, data) {
@@ -257,7 +259,11 @@ function UdpServerParse (buffer, version) {
 
 function UdpServerSerialize (packet, version) {
   const length = Protocol[version].sizeOf(packet, 'udp_outgoing')
+  if (Number.isNaN(length)) {
+    throw new Error(`Invalid packet ${JSON.stringify(packet)}`)
+  }
   const buffer = Buffer.allocUnsafe(length + 1)
+  buffer.writeUInt8(0)
   Protocol[version].write(packet, buffer, 1, 'udp_outgoing')
   return buffer
 }
