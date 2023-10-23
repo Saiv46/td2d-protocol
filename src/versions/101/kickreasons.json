@@ -1,0 +1,15 @@
+{
+	"0": "FailedToConnect",
+	"1": "KickedByHost",
+	"2": "BannedByHost",
+	"3": "VersionMismatch",
+	"4": "TCPTimeout",
+	"5": "UDPTimeout",
+	"6": "PacketsNotReceived",
+	"7": "GameAlreadyStarted",
+	"8": "AFKorTimeout",
+	"9": "LobbyIsFull",
+	"10": "RateLimited",
+	"128": "SilentDisconnect",
+	"255": "OtherReason"
+}
