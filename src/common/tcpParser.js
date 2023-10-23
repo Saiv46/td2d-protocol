@@ -20,7 +20,7 @@ class TcpPacketParser extends Transform {
     let slice = 0
     try {
       while (true) {
-        if (this.buffer.length < index) break
+        if (this.buffer.length <= index) break
         if (this.useHeader) {
           if (this.buffer.length < index + Header100.length) break
           if (this.buffer.compare(Header100, 0, Header100.length, index, index += Header100.length) !== 0) {
