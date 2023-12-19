@@ -1,6 +1,6 @@
 const { once } = require('node:events')
 const { createConnection, Enums } = require('..')
-const version = 100
+const version = 101
 
 if (!process.env.DEBUG) {
   console.log('🛈 Try running this with environment variable set as DEBUG=*')
