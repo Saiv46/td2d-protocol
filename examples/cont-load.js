@@ -50,7 +50,6 @@ setInterval(() => {
   while (connecting.size + clients.size + failed < players) createClient()
   const calculated = performance.now() - timestamp
   timestamp = performance.now()
-  const additional = Buffer.allocUnsafe(0)
   for (const client of clients) {
     client.writeUdp('ClientPing', { timestamp, calculated })
     client.writeUdp('PassthroughPlayerState', {
