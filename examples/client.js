@@ -16,6 +16,11 @@ async function main () {
   })
   console.log('Bot connected!')
 
+  let helloPacket
+  if (version > 100) {
+    helloPacket = await once(bot, 'ServerHello')
+  }
+
   // Identification
   bot.write('ClientIdentity', {
     version,
@@ -23,7 +28,8 @@ async function main () {
     icon: Enums[version].icons.byName.PowerUp,
     pet: Enums[version].pets.byName.Xato,
     os: Enums[version].os.byName.Linux,
-    uuid: 'saivbot'
+    uuid: 'saivbot',
+    unknown2: helloPacket[0].unknown
   })
   bot.once('ServerDisconnectReason', reason => console.error('Disconnect reason:', reason))
   const [{ clientId, isLobby }] = await once(bot, 'ServerStatus')

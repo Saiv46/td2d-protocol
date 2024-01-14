@@ -165,7 +165,7 @@
 						"0x80": "unknown_80",
 						"0x81": "unknown_81",
 						"0x82": "unknown_82",
-						"0x83": "unknown_83",
+						"0x83": "ServerHello",
 						"0x84": "unknown_84",
 						"0x85": "unknown_85",
 						"0x86": "unknown_86",
@@ -297,6 +297,10 @@
 				"container",
 				[
 					{
+						"name": "unknown1",
+						"type": "lu16"
+					},
+					{
 						"name": "version",
 						"type": "lu16"
 					},
@@ -311,6 +315,16 @@
 					{
 						"name": "pet",
 						"type": "i8"
+					},
+					{
+						"name": "unknown2",
+						"type": [
+							"array",
+							{
+								"type": "u8",
+								"count": 16
+							}
+						]
 					},
 					{
 						"name": "os",
@@ -337,7 +351,19 @@
 			],
 			"tcp__ServerPlayerJoined": "clientId",
 			"tcp__ServerPlayerLeft": "clientId",
-			"tcp__ServerDisconnectReason": "cstring",
+			"tcp__ServerDisconnectReason": [
+				"container",
+				[
+					{
+						"name": "reason",
+						"type": "u8"
+					},
+					{
+						"name": "string",
+						"type": "cstring"
+					}
+				]
+			],
 			"tcp__ServerReadyState": [
 				"container",
 				[
@@ -1537,13 +1563,24 @@
 					}
 				]
 			],
-			"tcp_packet": [
+			"tcp__ServerHello": [
 				"container",
 				[
 					{
-						"name": "passthrough",
-						"type": "bool"
-					},
+						"name": "unknown",
+						"type": [
+							"array",
+							{
+								"type": "u8",
+								"count": 14
+							}
+						]
+					}
+				]
+			],
+			"tcp_packet": [
+				"container",
+				[
 					{
 						"name": "type",
 						"type": "packet_type"
@@ -1649,7 +1686,8 @@
 									"PassthroughChatMessage": "tcp__PassthroughChatMessage",
 									"ClientLobbyVotekick": "tcp__ClientLobbyVotekick",
 									"UnusedPassthroughPlayerPallete": "tcp__UnusedPassthroughPlayerPallete",
-									"UnusedPassthroughPetPallete": "tcp__UnusedPassthroughPetPallete"
+									"UnusedPassthroughPetPallete": "tcp__UnusedPassthroughPetPallete",
+									"ServerHello": "tcp__ServerHello"
 								},
 								"default": "unimplemented"
 							}
