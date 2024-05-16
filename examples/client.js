@@ -1,6 +1,6 @@
 const { once } = require('node:events')
 const { createConnection, Enums } = require('..')
-const version = 101
+const version = 1014
 
 if (!process.env.DEBUG) {
   console.log('🛈 Try running this with environment variable set as DEBUG=*')
@@ -16,9 +16,25 @@ async function main () {
   })
   console.log('Bot connected!')
 
-  let helloPacket
+  let helloAnswer
   if (version > 100) {
-    helloPacket = await once(bot, 'ServerHello')
+    const [{ token }] = await once(bot, 'ServerHello')
+    // I have no fucking idea how this works
+    const i3 = token[2]
+    let o1 = i3, o3 = i3
+    if (i3 & 0x0200) {
+//      o1 = i3 + 0xA77EF8F2
+//      o3 = i3 + 0xDE3338D7
+    }
+    if (i3 & 0x04000000) {
+//      o1 = i3 + 0x0F18
+//      o3 = i3 + 0x0E01
+    }
+    if (i3 & 0x80000000) {
+//      o1 = i3 + 0x0AB0
+//      o3 = i3 + 0x0A3A
+    }
+    helloAnswer = [o1, 0, o3, 0]
   }
 
   // Identification
@@ -29,7 +45,7 @@ async function main () {
     pet: Enums[version].pets.byName.Xato,
     os: Enums[version].os.byName.Linux,
     uuid: 'saivbot',
-    unknown2: helloPacket[0].unknown
+    token: helloAnswer
   })
   bot.once('ServerDisconnectReason', reason => console.error('Disconnect reason:', reason))
   const [{ clientId, isLobby }] = await once(bot, 'ServerStatus')

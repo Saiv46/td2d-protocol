@@ -8,6 +8,7 @@
 		"lf32": "native",
 		"lf64": "native",
 		"bool": "native",
+		"buffer": "native",
 		"cstring": "native",
 		"void": "native",
 		"switch": "native",
@@ -297,10 +298,6 @@
 				"container",
 				[
 					{
-						"name": "unknown1",
-						"type": "lu16"
-					},
-					{
 						"name": "version",
 						"type": "lu16"
 					},
@@ -317,18 +314,14 @@
 						"type": "i8"
 					},
 					{
-						"name": "unknown2",
+						"name": "token",
 						"type": [
 							"array",
 							{
-								"type": "u8",
-								"count": 16
+								"count": 4,
+								"type": "lu32"
 							}
 						]
-					},
-					{
-						"name": "os",
-						"type": "u8"
 					},
 					{
 						"name": "uuid",
@@ -342,6 +335,10 @@
 					{
 						"name": "isLobby",
 						"type": "bool"
+					},
+					{
+						"name": "udpPort",
+						"type": "lu16"
 					},
 					{
 						"name": "clientId",
@@ -1531,9 +1528,8 @@
 					{
 						"name": "pallete",
 						"type": [
-							"array",
+							"buffer",
 							{
-								"type": "u8",
 								"count": 16
 							}
 						]
@@ -1554,9 +1550,8 @@
 					{
 						"name": "pallete",
 						"type": [
-							"array",
+							"buffer",
 							{
-								"type": "u8",
 								"count": 5
 							}
 						]
@@ -1567,12 +1562,16 @@
 				"container",
 				[
 					{
-						"name": "unknown",
+						"name": "unknown1",
+						"type": "lu16"
+					},
+					{
+						"name": "token",
 						"type": [
 							"array",
 							{
-								"type": "u8",
-								"count": 14
+								"count": 3,
+								"type": "lu32"
 							}
 						]
 					}
@@ -1584,6 +1583,27 @@
 					{
 						"name": "type",
 						"type": "packet_type"
+					},
+					{
+						"anon": true,
+						"type": [
+							"switch",
+							{
+								"compareTo": "type",
+								"fields": {
+									"ClientIdentity": [
+										"container",
+										[
+											{
+												"name": "workaround",
+												"type": "bool"
+											}
+										]
+									]
+								},
+								"default": "void"
+							}
+						]
 					},
 					{
 						"name": "data",
